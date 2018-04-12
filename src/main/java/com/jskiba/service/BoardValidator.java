@@ -22,7 +22,8 @@ public class BoardValidator {
         List<String> lines = new ArrayList<>();
 
         lines.addAll(findHorizontalLines(board));
-
+        lines.addAll(findVerticalLines(board));
+        lines.addAll(findDiagonalLines(board));
         return lines;
     }
 
