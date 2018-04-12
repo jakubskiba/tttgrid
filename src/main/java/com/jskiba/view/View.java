@@ -23,8 +23,18 @@ public class View {
         return Integer.parseInt(line);
     }
 
+    public int getNumberInRange(String prompt, int from, int to) {
+        String promptWithRange = prompt + "(" + from + "-" + to + ")";
+
+        int number = getNumber(promptWithRange);
+        while (number < from || number > to ) {
+            number = getNumber(promptWithRange);
+        }
+        return number;
+    }
+
     public boolean getYesNo(String prompt) {
-        System.out.println(prompt);
+        System.out.println(prompt + "(y/n)");
 
         String line = in.nextLine();
         while (!line.equalsIgnoreCase("y") && !line.equalsIgnoreCase("n")) {
