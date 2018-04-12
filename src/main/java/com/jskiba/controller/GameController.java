@@ -80,10 +80,13 @@ public class GameController {
         return players;
     }
 
-    private Player createPlayer() {
-        view.print("Creating player");
+    private Player createPlayer(boolean isHuman) {
+        if(isHuman) {
+            view.print("Creating human player");
+        } else {
+            view.print("Creating computer player");
+        }
         String name = view.getText("Provide player name: ");
-//        boolean isHuman = view.getYesNo("Is player human?");
         Character sign = view.getChar("Provide sign for player " + name + ":");
         return new Player(name, sign);
     }
