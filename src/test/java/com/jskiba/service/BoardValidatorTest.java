@@ -89,7 +89,27 @@ public class BoardValidatorTest {
         expectedLines.add("ijkl");
         BoardValidator boardValidator = new BoardValidator();
 
-        List<String> realLines = boardValidator.findAllLines(board);
+        List<String> realLines = boardValidator.findHorizontalLines(board);
+
+        assertEquals(expectedLines, realLines);
+    }
+
+    @Test
+    public void testFindVerticalLines() {
+        Board board = new Board(3, 4);
+        for(int i = 0; i<12; i++) {
+            char sign = (char) ('a'+i);
+            board.setField(sign, i);
+        }
+
+        List<String> expectedLines = new ArrayList<>();
+        expectedLines.add("aei");
+        expectedLines.add("bfj");
+        expectedLines.add("cgk");
+        expectedLines.add("dhl");
+        BoardValidator boardValidator = new BoardValidator();
+
+        List<String> realLines = boardValidator.findVerticalLines(board);
 
         assertEquals(expectedLines, realLines);
     }

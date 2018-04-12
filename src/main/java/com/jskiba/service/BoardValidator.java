@@ -26,7 +26,7 @@ public class BoardValidator {
         return lines;
     }
 
-    private List<String> findHorizontalLines(Board board) {
+    List<String> findHorizontalLines(Board board) {
         List<String> horizontalLines = new ArrayList<>();
 
         board.getBoardSize();
@@ -38,6 +38,24 @@ public class BoardValidator {
         }
 
         return horizontalLines;
+    }
+
+    List<String> findVerticalLines(Board board) {
+        List<String> verticalLines = new ArrayList<>();
+
+        char[] fields = board.getFields();
+
+        int lineSize = board.getWidth();
+
+        for(int i = 0; i<board.getWidth(); i++) {
+            StringBuilder currentLine = new StringBuilder();
+            for(int j = 0; j<board.getHeight(); j++) {
+                int index = j * lineSize + i;
+                currentLine.append(fields[index]);
+            }
+            verticalLines.add(currentLine.toString());
+        }
+        return verticalLines;
     }
 
     public boolean isLineComplete(String line) {
