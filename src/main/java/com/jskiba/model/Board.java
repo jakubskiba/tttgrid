@@ -1,7 +1,7 @@
 package com.jskiba.model;
 
 public class Board {
-    private static final char EMPTY_FIELD_CHAR = ' ';
+    public static final char EMPTY_FIELD_CHAR = ' ';
     private int height;
     private int width;
     private int boardSize;
