@@ -1,7 +1,5 @@
 package com.jskiba.model;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -83,5 +81,19 @@ public class BoardTest {
         board.setField(sign, coordinate);
 
         assertEquals(board.EMPTY_FIELD_CHAR, board.getFields()[5]);
+    }
+
+    @Test
+    void testSetFieldAlreadyTakenField() {
+        char sign = 'x';
+        char sign2 = 'o';
+        Board board = new Board(3, 3);
+
+        int coordinate = 4;
+
+        board.setField(sign, coordinate);
+        board.setField(sign2, coordinate);
+
+        assertEquals(sign, board.getFields()[coordinate]);
     }
 }
