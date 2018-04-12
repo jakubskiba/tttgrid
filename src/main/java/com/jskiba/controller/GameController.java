@@ -34,6 +34,11 @@ public class GameController {
         setupGame();
     }
 
+    private boolean isGameOver() {
+        return this.boardValidator.isBoardComplete(this.game.getBoard()) ||
+                this.boardValidator.isBoardFull(this.game.getBoard());
+    }
+
     private void setupGame() {
         if(game == null) {
             setupNewGame();
