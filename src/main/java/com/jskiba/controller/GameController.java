@@ -44,18 +44,10 @@ public class GameController {
     }
 
     private Board createBoard() {
-        boolean nonSquareBoard = view.getYesNo("Allow play on non square board? (y/n)");
 
-        int width;
-        int height;
+        int size = view.getNumberInRange("Provide size of board", BOARD_MIN_SIZE, BOARD_MAX_SIZE);
 
-        if(nonSquareBoard) {
-            width = getLimitedSize("Provide width");
-            height = getLimitedSize("Provide height");
-        } else {
-            int size = getLimitedSize("Provide size:");
-            width = size;
-            height = size;
+        return new Board(size, size);
         }
 
         return new Board(width, height);
