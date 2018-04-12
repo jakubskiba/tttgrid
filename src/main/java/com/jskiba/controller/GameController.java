@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 public class GameController {
     private View view;
     private Game game;
+    private Board board;
     private Queue<PlayerController> playesQueue;
     private BoardValidator boardValidator;
     private PlayerControllerFactory playerControllerFactory;
@@ -33,6 +34,26 @@ public class GameController {
 
     public void startController() {
         setupGame();
+        while (!isGameOver()) {
+            view.cleanScreen();
+            view.print(this.game.getBoard());
+            PlayerController currentPlayer = playesQueue.peek();
+            int coordinates = currentPlayer.getCoordinatesOfMove(board);
+            char sign = currentPlayer.getPlayer().getSign();
+            boolean isMoveDone = this.board.setField(sign, coordinates);
+            if(isMoveDone) {
+                playesQueue.offer(playesQueue.poll());
+            }
+        }
+        view.cleanScreen();
+        view.print(this.game.getBoard());
+        Player winner = determineWinner();
+        if(winner == null) {
+            view.print("Withdraw!");
+        } else {
+            view.print(winner.getName() + " wins!");
+        }
+    }
 
     private Player determineWinner() {
         char sign = this.boardValidator.findWinningSign(this.board);
@@ -40,7 +61,7 @@ public class GameController {
             if(player.getSign().equals(sign)) {
                 return player;
             }
-    }
+        }
         return null;
     }
 
@@ -78,7 +99,7 @@ public class GameController {
         int size = view.getNumberInRange("Provide size of board", BOARD_MIN_SIZE, BOARD_MAX_SIZE);
 
         return new Board(size, size);
-        }
+    }
 
     private List<PlayerController> createPlayerControllers() {
         List<PlayerController> players = new ArrayList<>();
