@@ -27,6 +27,16 @@ public class BoardValidator {
         return lines;
     }
 
+    public boolean isBoardComplete(Board board) {
+        List<String> lines = findAllLines(board);
+        for(String line : lines) {
+            if(isLineComplete(line)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     List<String> findHorizontalLines(Board board) {
         List<String> horizontalLines = new ArrayList<>();
 

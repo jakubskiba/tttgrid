@@ -132,5 +132,32 @@ public class BoardValidatorTest {
         assertEquals(expectedLines, realLines);
     }
 
+    @Test
+    public void testBoardNotComplete() {
+        Board board = new Board(3, 3);
+        BoardValidator boardValidator = new BoardValidator();
+        assertFalse(boardValidator.isBoardComplete(board));
+    }
+
+    @Test
+    public void testBoardAlmostComplete() {
+        Board board = new Board(3, 3);
+        BoardValidator boardValidator = new BoardValidator();
+        board.setField('x', 0);
+        board.setField('x', 4);
+        board.setField('o', 8);
+        assertFalse(boardValidator.isBoardComplete(board));
+    }
+
+    @Test
+    public void testBoardComplete() {
+        Board board = new Board(3, 3);
+        BoardValidator boardValidator = new BoardValidator();
+        board.setField('x', 0);
+        board.setField('x', 4);
+        board.setField('x', 8);
+        assertTrue(boardValidator.isBoardComplete(board));
+    }
+
 
 }
