@@ -12,4 +12,24 @@ public class BoardValidator {
 
         return true;
     }
+
+    public boolean isLineComplete(char[] line) {
+        return isLineComplete(' ', line);
+    }
+
+    public boolean isLineComplete(char emptyCharSign, char[] line) {
+        Character firstChar = line[0];
+
+        if(firstChar.equals(emptyCharSign)) {
+            return false;
+        }
+
+        for(Character field : line) {
+            if(!field.equals(firstChar)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
 }

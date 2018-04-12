@@ -47,4 +47,30 @@ public class BoardValidatorTest {
 
         assertTrue(boardValidator.isBoardFull(board));
     }
+
+    @Test
+    public void testLineCompleteTrue() {
+        char[] line = {'x', 'x', 'x'};
+        BoardValidator boardValidator = new BoardValidator();
+
+        assertTrue(boardValidator.isLineComplete(line));
+    }
+
+    @Test
+    public void testLineCompleteFalse() {
+        char[] line = {'x', ' ', 'x'};
+        BoardValidator boardValidator = new BoardValidator();
+
+        assertFalse(boardValidator.isLineComplete(line));
+    }
+
+    @Test
+    public void testLineCompleteFalseDiffSigns() {
+        char[] line = {'x', 'o', 'x'};
+        BoardValidator boardValidator = new BoardValidator();
+
+        assertFalse(boardValidator.isLineComplete(line));
+    }
+
+
 }
