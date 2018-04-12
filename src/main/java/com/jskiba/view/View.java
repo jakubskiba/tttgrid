@@ -1,5 +1,7 @@
 package com.jskiba.view;
 
+import com.jskiba.model.Board;
+
 import java.util.Scanner;
 
 public class View {
@@ -66,5 +68,42 @@ public class View {
         } catch (NumberFormatException e) {
             return false;
         }
+    }
+
+    public void print(Board board) {
+        char[] fields = board.getFields();
+        printLetterCoordinates(board.getWidth());
+        for(int row = 0; row < board.getWidth(); row++) {
+            printRow(board.getWidth(), row, fields);
+
+            if(row < board.getWidth() - 1) {
+                printSeparator(board.getHeight());
+            }
+        }
+    }
+
+    private void printSeparator(int width) {
+        for(int i = 0; i < width * 4 - 1; i++) {
+            System.out.print("-");
+        }
+        System.out.println();
+    }
+
+    private void printRow(int width, int row, char[] fields) {
+        for(int column = 0; column < width; column++) {
+            int index = row * width + column;
+            String ending = column < width - 1 ? "|" : String.valueOf(row);
+            System.out.printf(" %s %s", fields[index], ending);
+        }
+        System.out.println();
+    }
+
+    private void printLetterCoordinates(int width) {
+        for(int i = 0; i < width; i++) {
+            char letter = (char) ('a' + i);
+            System.out.printf(" %s  ", letter);
+        }
+        System.out.println();
+
     }
 }
