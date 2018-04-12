@@ -76,23 +76,19 @@ public class GameController {
         return new Board(size, size);
         }
 
-        return new Board(width, height);
-    }
+    private List<PlayerController> createPlayerControllers() {
+        List<PlayerController> players = new ArrayList<>();
 
-    private int getLimitedSize(String propmt) {
-        int size = view.getNumber(propmt);
-        while (size < BOARD_MIN_SIZE || size > BOARD_MAX_SIZE) {
-            size = view.getNumber(propmt);
+        for(int i = 0; i < HUMAN_PLAYER_AMOUNT; i++) {
+            Player player = createPlayer(true);
+            PlayerController playerController = new HumanPlayerController(player, view);
+            players.add(playerController);
         }
 
-        return size;
-    }
-
-    private List<Player> createPlayers() {
-        List<Player> players = new ArrayList<>();
-
-        for(int i = 0; i < PLAYER_AMOUNT; i++) {
-            players.add(createPlayer());
+        for(int i = 0; i < COMPUTER_PLAYER_AMOUNT; i++) {
+            Player player = createPlayer(false);
+            PlayerController playerController = playerControllerFactory.getPlayerController(AIStrategy, player);
+            players.add(playerController);
         }
 
         return players;
