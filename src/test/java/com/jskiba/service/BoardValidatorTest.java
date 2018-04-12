@@ -3,6 +3,9 @@ package com.jskiba.service;
 import com.jskiba.model.Board;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class BoardValidatorTest {
@@ -50,7 +53,7 @@ public class BoardValidatorTest {
 
     @Test
     public void testLineCompleteTrue() {
-        char[] line = {'x', 'x', 'x'};
+        String line = "xxx";
         BoardValidator boardValidator = new BoardValidator();
 
         assertTrue(boardValidator.isLineComplete(line));
@@ -58,7 +61,7 @@ public class BoardValidatorTest {
 
     @Test
     public void testLineCompleteFalse() {
-        char[] line = {'x', ' ', 'x'};
+        String line = "xx ";
         BoardValidator boardValidator = new BoardValidator();
 
         assertFalse(boardValidator.isLineComplete(line));
@@ -66,10 +69,29 @@ public class BoardValidatorTest {
 
     @Test
     public void testLineCompleteFalseDiffSigns() {
-        char[] line = {'x', 'o', 'x'};
+        String line = "xxo";
         BoardValidator boardValidator = new BoardValidator();
 
         assertFalse(boardValidator.isLineComplete(line));
+    }
+
+    @Test
+    public void testFindHorizontalLines() {
+        Board board = new Board(3, 4);
+        for(int i = 0; i<12; i++) {
+            char sign = (char) ('a'+i);
+            board.setField(sign, i);
+        }
+
+        List<String> expectedLines = new ArrayList<>();
+        expectedLines.add("abcd");
+        expectedLines.add("efgh");
+        expectedLines.add("ijkl");
+        BoardValidator boardValidator = new BoardValidator();
+
+        List<String> realLines = boardValidator.findAllLines(board);
+
+        assertEquals(expectedLines, realLines);
     }
 
 
