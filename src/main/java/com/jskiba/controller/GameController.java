@@ -6,21 +6,28 @@ import com.jskiba.model.Player;
 import com.jskiba.service.BoardValidator;
 import com.jskiba.view.View;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class GameController {
     private View view;
     private Game game;
     private BoardValidator boardValidator;
+    private PlayerControllerFactory playerControllerFactory;
+    private String AIStrategy;
 
     private final static int BOARD_MIN_SIZE = 3;
     private final static int BOARD_MAX_SIZE = 9;
-    private final static int PLAYER_AMOUNT = 3;
+    private final static int HUMAN_PLAYER_AMOUNT = 2;
+    private final static int COMPUTER_PLAYER_AMOUNT = 1;
 
-    public GameController(View view, BoardValidator boardValidator) {
+    public GameController(View view, BoardValidator boardValidator,
+                          PlayerControllerFactory playerControllerFactory,
+                          String AIStrategy) {
         this.view = view;
         this.boardValidator = boardValidator;
+        this.playerControllerFactory = playerControllerFactory;
+        this.AIStrategy = AIStrategy;
     }
 
     public void startController() {
@@ -37,7 +44,12 @@ public class GameController {
 
     private void setupNewGame() {
         Board board = createBoard();
-        List<Player> players = createPlayers();
+        this.board = board;
+        List<PlayerController> playerControllers = createPlayerControllers();
+        List<Player> players = playerControllers
+                                    .stream()
+                                    .map(PlayerController::getPlayer)
+                                    .collect(Collectors.toList());
 
         this.game = new Game(board, players);
 
