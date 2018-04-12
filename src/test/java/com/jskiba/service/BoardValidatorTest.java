@@ -159,5 +159,15 @@ public class BoardValidatorTest {
         assertTrue(boardValidator.isBoardComplete(board));
     }
 
+    @Test
+    public void testFindWinningSign() {
+        Board board = new Board(3, 3);
+        BoardValidator boardValidator = new BoardValidator();
+        board.setField('x', 0);
+        board.setField('x', 4);
+        board.setField('x', 8);
+        assertEquals('x', boardValidator.findWinningSign(board));
+    }
+
 
 }

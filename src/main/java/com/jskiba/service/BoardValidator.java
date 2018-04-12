@@ -37,6 +37,16 @@ public class BoardValidator {
         return false;
     }
 
+    public char findWinningSign(Board board) {
+        List<String> lines = findAllLines(board);
+        for (String line : lines) {
+            if(isLineComplete(line)) {
+                return line.charAt(0);
+            }
+        }
+        return board.EMPTY_FIELD_CHAR;
+    }
+
     List<String> findHorizontalLines(Board board) {
         List<String> horizontalLines = new ArrayList<>();
 
