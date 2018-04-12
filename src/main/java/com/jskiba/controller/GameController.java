@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 public class GameController {
     private View view;
     private Game game;
+    private Queue<PlayerController> playesQueue;
     private BoardValidator boardValidator;
     private PlayerControllerFactory playerControllerFactory;
     private String AIStrategy;
@@ -66,6 +67,9 @@ public class GameController {
                                     .collect(Collectors.toList());
 
         this.game = new Game(board, players);
+
+        Collections.shuffle(playerControllers);
+        this.playesQueue = new LinkedList<>(playerControllers);
 
     }
 
