@@ -40,4 +40,17 @@ public class Board {
     public int getBoardSize() {
         return boardSize;
     }
+
+    public boolean setField(char sign, int coordinates) {
+        if(coordinates >= boardSize || coordinates < 0) {
+            throw new IllegalArgumentException("Invalid coordinates!");
+        }
+
+        if(this.fields[coordinates] == ' ') {
+            this.fields[coordinates] = sign;
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
