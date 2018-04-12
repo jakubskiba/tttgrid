@@ -32,6 +32,15 @@ public class GameController {
 
     public void startController() {
         setupGame();
+
+    private Player determineWinner() {
+        char sign = this.boardValidator.findWinningSign(this.board);
+        for(Player player : this.game.getPlayers()) {
+            if(player.getSign().equals(sign)) {
+                return player;
+            }
+    }
+        return null;
     }
 
     private boolean isGameOver() {
