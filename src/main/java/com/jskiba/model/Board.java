@@ -26,7 +26,7 @@ public class Board {
     }
 
     public char[] getFields() {
-        return fields;
+        return fields.clone();
     }
 
     public int getHeight() {
