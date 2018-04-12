@@ -28,4 +28,16 @@ public class Board {
     public char[] getFields() {
         return fields;
     }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getBoardSize() {
+        return boardSize;
+    }
 }
