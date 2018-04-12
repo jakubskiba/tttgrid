@@ -58,6 +58,35 @@ public class BoardValidator {
         return verticalLines;
     }
 
+    List<String> findDiagonalLines(Board board) {
+        List<String> diagonalLines = new ArrayList<>();
+
+        diagonalLines.add(findFirstDiagonal(board));
+        diagonalLines.add(findSecondDiagonal(board));
+
+        return diagonalLines;
+    }
+
+    private String findFirstDiagonal(Board board) {
+        StringBuilder diagonal = new StringBuilder();
+        char[] fields = board.getFields();
+        for(int row = 0; row < board.getWidth(); row++) {
+            int index = board.getWidth() * row + row;
+            diagonal.append(fields[index]);
+        }
+        return diagonal.toString();
+    }
+
+    private String findSecondDiagonal(Board board) {
+        StringBuilder diagonal = new StringBuilder();
+        char[] fields = board.getFields();
+        for(int row = 0; row < board.getWidth(); row++) {
+            int index = board.getWidth() * row + board.getWidth() - row - 1;
+            diagonal.append(fields[index]);
+        }
+        return diagonal.toString();
+    }
+
     public boolean isLineComplete(String line) {
         return isLineComplete(' ', line);
     }

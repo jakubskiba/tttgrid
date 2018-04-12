@@ -114,5 +114,23 @@ public class BoardValidatorTest {
         assertEquals(expectedLines, realLines);
     }
 
+    @Test
+    public void testFindDiagonalLines() {
+        Board board = new Board(3, 3);
+        for(int i = 0; i<9; i++) {
+            char sign = (char) ('a'+i);
+            board.setField(sign, i);
+        }
+
+        List<String> expectedLines = new ArrayList<>();
+        expectedLines.add("aei");
+        expectedLines.add("ceg");
+        BoardValidator boardValidator = new BoardValidator();
+
+        List<String> realLines = boardValidator.findDiagonalLines(board);
+
+        assertEquals(expectedLines, realLines);
+    }
+
 
 }
