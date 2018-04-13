@@ -128,7 +128,12 @@ public class GameController {
             view.print("Creating computer player");
         }
         String name = view.getText("Provide player name: ");
+        Character sign = getPlayerSign(name);
 
+        return new Player(name, sign);
+    }
+
+    private Character getPlayerSign(String name) {
         Character sign = view.getChar("Provide sign for player " + name + ":");
         while (takenSigns.contains(sign)) {
             view.print("Sign taken!");
@@ -136,7 +141,7 @@ public class GameController {
         }
         takenSigns.add(sign);
 
-        return new Player(name, sign);
+        return sign;
     }
 
     private void restartGame() {

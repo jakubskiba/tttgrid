@@ -89,7 +89,7 @@ public class BoardValidator {
         return verticalLinesCoordinates;
     }
 
-    private List<String> findHorizontalLines(Board board) {
+    List<String> findHorizontalLines(Board board) {
         List<String> horizontalLines = findHorizontalLinesCoordinates(board)
                 .stream()
                 .map(coordinatedList -> makeLineFromCoordinates(board, coordinatedList))
@@ -115,7 +115,7 @@ public class BoardValidator {
         return verticalLinesCoordinates;
     }
 
-    private List<String> findVerticalLines(Board board) {
+    List<String> findVerticalLines(Board board) {
         List<String> verticalLines = findVerticalLinesCoordinates(board)
                 .stream()
                 .map(coordinatedList -> makeLineFromCoordinates(board, coordinatedList))
@@ -123,7 +123,7 @@ public class BoardValidator {
         return verticalLines;
     }
 
-    private List<String> findDiagonalLines(Board board) {
+    List<String> findDiagonalLines(Board board) {
         List<String> diagonalLines = new ArrayList<>();
 
         diagonalLines.add(findFirstDiagonal(board));
