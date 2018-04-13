@@ -11,7 +11,7 @@ public class GameTest {
 
     @Test
     public void testGetBoard() {
-        Board board = new Board(3, 3);
+        Board board = new Board(3);
         List<Player> players = new ArrayList<>();
 
         Game game = new Game(board, players);
@@ -21,7 +21,7 @@ public class GameTest {
 
     @Test
     public void testGetPlayers() {
-        Board board = new Board(3, 3);
+        Board board = new Board(3);
         List<Player> players = new ArrayList<>();
 
         players.add(new Player("Andrzej", 'x'));
@@ -35,7 +35,7 @@ public class GameTest {
 
     @Test
     public void testGetPlayersAmount() {
-        Board board = new Board(3, 3);
+        Board board = new Board(3);
         List<Player> players = new ArrayList<>();
 
         players.add(new Player("Andrzej", 'x'));

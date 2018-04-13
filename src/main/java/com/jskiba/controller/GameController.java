@@ -111,7 +111,7 @@ public class GameController {
 
         int size = view.getNumberInRange("Provide size of board", boardMinSize, boardMaxSize);
 
-        return new Board(size, size);
+        return new Board(size);
     }
 
     private List<PlayerController> createPlayerControllers() {
@@ -151,7 +151,7 @@ public class GameController {
     }
 
     private void restartGame() {
-        this.board = new Board(this.board.getHeight());
+        this.board = new Board(this.board.getSide());
         List<PlayerController> playerControllers = new ArrayList<>(this.playersQueue);
         List<Player> players = new ArrayList<>(this.game.getPlayers());
 

@@ -12,7 +12,7 @@ public class BoardTest {
 
     @Test
     public void testBoardConstructor() {
-        Board board = new Board(3, 3);
+        Board board = new Board(3);
 
         char[] expectedFields = {' ', ' ', ' ',
                 ' ', ' ', ' ',
@@ -22,41 +22,32 @@ public class BoardTest {
     }
 
     @Test
-    public void testBoardGetHeight() {
-        int height = 3;
+    public void testBoardGetSide() {
+        int side = 3;
 
-        Board board = new Board(height, 4);
+        Board board = new Board(side);
 
-        assertEquals(height, board.getHeight());
-    }
-
-    @Test
-    public void testBoardGetWidth() {
-        int width = 3;
-
-        Board board = new Board(4, width);
-
-        assertEquals(width, board.getWidth());
+        assertEquals(side, board.getSide());
     }
 
     @Test
     public void testBoardSize() {
-        int boardSize = 12;
+        int boardSize = 9;
 
-        Board board = new Board(3, 4);
+        Board board = new Board(3);
 
         assertEquals(boardSize, board.getBoardSize());
     }
 
     @Test
     void testSetFieldWithNegativeCoordinates() {
-        Board board = new Board(3, 3);
+        Board board = new Board(3);
         assertThrows(IllegalArgumentException.class, () -> board.setField('x', -1));
     }
 
     @Test
     void testSetFieldWithOutOfRangeCoordinates() {
-        Board board = new Board(3, 3);
+        Board board = new Board(3);
         assertThrows(IllegalArgumentException.class, () -> board.setField('x', 9));
     }
 
@@ -64,7 +55,7 @@ public class BoardTest {
     @ValueSource(ints = {0, 1, 2, 3, 4, 5, 6, 7, 8})
     void testSetField(int coordinate) {
         char sign = 'x';
-        Board board = new Board(3, 3);
+        Board board = new Board(3);
 
         board.setField(sign, coordinate);
 
@@ -74,7 +65,7 @@ public class BoardTest {
     @Test
     void testSetFieldDontMarkOtherField() {
         char sign = 'x';
-        Board board = new Board(3, 3);
+        Board board = new Board(3);
 
         int coordinate = 4;
 
@@ -87,7 +78,7 @@ public class BoardTest {
     void testSetFieldAlreadyTakenField() {
         char sign = 'x';
         char sign2 = 'o';
-        Board board = new Board(3, 3);
+        Board board = new Board(3);
 
         int coordinate = 4;
 

@@ -2,19 +2,13 @@ package com.jskiba.model;
 
 public class Board {
     public static final char EMPTY_FIELD_CHAR = ' ';
-    private int height;
-    private int width;
+    private int side;
     private int boardSize;
     private char[] fields;
 
-    public Board(int size) {
-        this(size, size);
-    }
-
-    public Board(int height, int width) {
-        this.height = height;
-        this.width = width;
-        this.boardSize = height * width;
+    public Board(int side) {
+        this.side = side;
+        this.boardSize = side * side;
         this.initBoard();
         this.populateBoard();
     }
@@ -33,12 +27,8 @@ public class Board {
         return fields.clone();
     }
 
-    public int getHeight() {
-        return height;
-    }
-
-    public int getWidth() {
-        return width;
+    public int getSide() {
+        return side;
     }
 
     public int getBoardSize() {

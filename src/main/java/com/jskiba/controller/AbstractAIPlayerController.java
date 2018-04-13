@@ -60,7 +60,7 @@ public abstract class AbstractAIPlayerController implements PlayerController {
 
     private Float computeLineCompletionProgress(Board board, char emptyFieldSign, char winningSign,
                                                 List<Integer> lineCoordinates) {
-        int lineSize = board.getWidth();
+        int lineSize = board.getSide();
         int completeFieldsAmount = 0;
 
         for(Integer coordinate : lineCoordinates) {

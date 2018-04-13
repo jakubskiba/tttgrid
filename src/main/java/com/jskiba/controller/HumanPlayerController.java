@@ -17,10 +17,10 @@ public class HumanPlayerController implements PlayerController {
     public int getCoordinatesOfMove(Board board) {
         String prompt = player.getName() + " provide coordinate (letterNumber ex. a0)";
         String userInput = view.getText(prompt);
-        int coordinate = getCoordinate(userInput, board.getWidth());
+        int coordinate = getCoordinate(userInput, board.getSide());
         while (coordinate < 0) {
             userInput = view.getText(prompt);
-            coordinate = getCoordinate(userInput, board.getWidth());
+            coordinate = getCoordinate(userInput, board.getSide());
         }
         return coordinate;
     }

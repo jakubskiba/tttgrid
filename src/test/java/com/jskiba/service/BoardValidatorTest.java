@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class BoardValidatorTest {
     @Test
     public void testBoardFullFalse() {
-        Board board = new Board(3, 3);
+        Board board = new Board(3);
         BoardValidator boardValidator = new BoardValidator();
 
         assertFalse(boardValidator.isBoardFull(board));
@@ -19,7 +19,7 @@ public class BoardValidatorTest {
 
     @Test
     public void testBoardFullFalseWithOneMarked() {
-        Board board = new Board(3, 3);
+        Board board = new Board(3);
         BoardValidator boardValidator = new BoardValidator();
 
         board.setField('x', 0);
@@ -29,7 +29,7 @@ public class BoardValidatorTest {
 
     @Test
     public void testBoardFullFalseWithAlmostAllMarked() {
-        Board board = new Board(3, 3);
+        Board board = new Board(3);
         BoardValidator boardValidator = new BoardValidator();
 
         for(int i = 0; i < board.getBoardSize() - 1; i++) {
@@ -41,7 +41,7 @@ public class BoardValidatorTest {
 
     @Test
     public void testBoardFullTrueWithAllMarked() {
-        Board board = new Board(3, 3);
+        Board board = new Board(3);
         BoardValidator boardValidator = new BoardValidator();
 
         for(int i = 0; i < board.getBoardSize(); i++) {
@@ -77,16 +77,16 @@ public class BoardValidatorTest {
 
     @Test
     public void testFindHorizontalLines() {
-        Board board = new Board(4, 3);
-        for(int i = 0; i<12; i++) {
+        Board board = new Board(3);
+        for(int i = 0; i<9; i++) {
             char sign = (char) ('a'+i);
             board.setField(sign, i);
         }
 
         List<String> expectedLines = new ArrayList<>();
-        expectedLines.add("abcd");
-        expectedLines.add("efgh");
-        expectedLines.add("ijkl");
+        expectedLines.add("abc");
+        expectedLines.add("def");
+        expectedLines.add("ghi");
         BoardValidator boardValidator = new BoardValidator();
 
         List<String> realLines = boardValidator.findHorizontalLines(board);
@@ -96,17 +96,16 @@ public class BoardValidatorTest {
 
     @Test
     public void testFindVerticalLines() {
-        Board board = new Board(3, 4);
-        for(int i = 0; i<12; i++) {
+        Board board = new Board(3);
+        for(int i = 0; i<9; i++) {
             char sign = (char) ('a'+i);
             board.setField(sign, i);
         }
 
         List<String> expectedLines = new ArrayList<>();
-        expectedLines.add("aei");
-        expectedLines.add("bfj");
-        expectedLines.add("cgk");
-        expectedLines.add("dhl");
+        expectedLines.add("adg");
+        expectedLines.add("beh");
+        expectedLines.add("cfi");
         BoardValidator boardValidator = new BoardValidator();
 
         List<String> realLines = boardValidator.findVerticalLines(board);
@@ -116,7 +115,7 @@ public class BoardValidatorTest {
 
     @Test
     public void testFindDiagonalLines() {
-        Board board = new Board(3, 3);
+        Board board = new Board(3);
         for(int i = 0; i<9; i++) {
             char sign = (char) ('a'+i);
             board.setField(sign, i);
@@ -134,14 +133,14 @@ public class BoardValidatorTest {
 
     @Test
     public void testBoardNotComplete() {
-        Board board = new Board(3, 3);
+        Board board = new Board(3);
         BoardValidator boardValidator = new BoardValidator();
         assertFalse(boardValidator.isBoardComplete(board));
     }
 
     @Test
     public void testBoardAlmostComplete() {
-        Board board = new Board(3, 3);
+        Board board = new Board(3);
         BoardValidator boardValidator = new BoardValidator();
         board.setField('x', 0);
         board.setField('x', 4);
@@ -151,7 +150,7 @@ public class BoardValidatorTest {
 
     @Test
     public void testBoardComplete() {
-        Board board = new Board(3, 3);
+        Board board = new Board(3);
         BoardValidator boardValidator = new BoardValidator();
         board.setField('x', 0);
         board.setField('x', 4);
@@ -161,7 +160,7 @@ public class BoardValidatorTest {
 
     @Test
     public void testFindWinningSign() {
-        Board board = new Board(3, 3);
+        Board board = new Board(3);
         BoardValidator boardValidator = new BoardValidator();
         board.setField('x', 0);
         board.setField('x', 4);

@@ -46,8 +46,8 @@ public class BoardValidator {
     private List<Integer> findFirstDiagonalCoordinates(Board board) {
         List<Integer> firstDiagonalCoordinates = new ArrayList<>();
 
-        for(int row = 0; row < board.getWidth(); row++) {
-            int index = board.getWidth() * row + row;
+        for(int row = 0; row < board.getSide(); row++) {
+            int index = board.getSide() * row + row;
             firstDiagonalCoordinates.add(index);
         }
 
@@ -56,8 +56,8 @@ public class BoardValidator {
 
     private List<Integer> findSecondDiagonalCoordinates(Board board) {
         List<Integer> secondDiagonalCoordinates = new ArrayList<>();
-        for(int row = 0; row < board.getWidth(); row++) {
-            int index = board.getWidth() * row + board.getWidth() - row - 1;
+        for(int row = 0; row < board.getSide(); row++) {
+            int index = board.getSide() * row + board.getSide() - row - 1;
             secondDiagonalCoordinates.add(index);
         }
         return secondDiagonalCoordinates;
@@ -66,10 +66,10 @@ public class BoardValidator {
     private List<List<Integer>> findHorizontalLinesCoordinates(Board board) {
         List<List<Integer>> verticalLinesCoordinates = new ArrayList<>();
 
-        int lineSize = board.getHeight();
-        for(int i = 0; i<board.getWidth(); i++) {
+        int lineSize = board.getSide();
+        for(int i = 0; i<board.getSide(); i++) {
             List<Integer> coordinates = new ArrayList<>();
-            for(int j = 0; j<board.getHeight(); j++) {
+            for(int j = 0; j<board.getSide(); j++) {
                 int index = i*lineSize +j;
                 coordinates.add(index);
 
@@ -83,11 +83,11 @@ public class BoardValidator {
     private List<List<Integer>> findVerticalLinesCoordinates(Board board) {
         List<List<Integer>> verticalLinesCoordinates = new ArrayList<>();
 
-        int lineSize = board.getWidth();
+        int lineSize = board.getSide();
 
-        for(int i = 0; i<board.getWidth(); i++) {
+        for(int i = 0; i<board.getSide(); i++) {
             List<Integer> lineCoordinates = new ArrayList<>();
-            for(int j = 0; j<board.getHeight(); j++) {
+            for(int j = 0; j<board.getSide(); j++) {
                 int index = j * lineSize + i;
                 lineCoordinates.add(index);
             }

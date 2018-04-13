@@ -82,12 +82,12 @@ public class View {
 
     public void print(Board board) {
         char[] fields = board.getFields();
-        printLetterCoordinates(board.getWidth());
-        for(int row = 0; row < board.getWidth(); row++) {
-            printRow(board.getWidth(), row, fields);
+        printLetterCoordinates(board.getSide());
+        for(int row = 0; row < board.getSide(); row++) {
+            printRow(board.getSide(), row, fields);
 
-            if(row < board.getWidth() - 1) {
-                printSeparator(board.getHeight());
+            if(row < board.getSide() - 1) {
+                printSeparator(board.getSide());
             }
         }
     }
