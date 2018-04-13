@@ -32,6 +32,11 @@ ttt.maxBoardSize=9
 There are three parameters:
 * ttt.listOfPlayers  
 determines amount and kind(strategy) of players will.  
+Possible options: 
+  * human
+  * random
+  * ai-easy
+  * ai hard
 * ttt.minBoardSize  
 Minimal size of board.
 * ttt.maxBoardSize  
