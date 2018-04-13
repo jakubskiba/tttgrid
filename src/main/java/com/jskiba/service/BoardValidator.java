@@ -17,7 +17,7 @@ public class BoardValidator {
         return true;
     }
 
-    private String makeLineFromCoordinates(Board board, List<Integer> coordinateList) {
+    public String makeLineFromCoordinates(Board board, List<Integer> coordinateList) {
         StringBuilder line = new StringBuilder();
 
         char[] fields = board.getFields();
@@ -39,6 +39,17 @@ public class BoardValidator {
         lines.addAll(findVerticalLines(board));
         lines.addAll(findDiagonalLines(board));
         return lines;
+    }
+
+    public List<List<Integer>> findAllLinesCoordinates(Board board) {
+        List<List<Integer>> linesCoordinates = new ArrayList<>();
+
+        linesCoordinates.add(findFirstDiagonalCoordinates(board));
+        linesCoordinates.add(findSecondDiagonalCoordinates(board));
+        linesCoordinates.addAll(findHorizontalLinesCoordinates(board));
+        linesCoordinates.addAll(findVerticalLinesCoordinates(board));
+
+        return linesCoordinates;
     }
 
     public boolean isBoardComplete(Board board) {
