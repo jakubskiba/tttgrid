@@ -24,7 +24,7 @@ Application need to be configured in ```src/main/resources/application.propertie
 Default configuration:
 
 ```
-ttt.listOfValues=human,human,ai-hard
+ttt.listOfPlayers=human,human,ai-hard
 ttt.minBoardSize=3
 ttt.maxBoardSize=9
 ```
