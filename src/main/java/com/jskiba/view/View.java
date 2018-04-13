@@ -71,6 +71,11 @@ public class View {
         System.out.println(text);
     }
 
+    public void printError(String message) {
+        System.out.println(message + " (press enter to continue)");
+        in.nextLine();
+    }
+
     private boolean isNumeric(String line) {
         try {
             Integer.parseInt(line);

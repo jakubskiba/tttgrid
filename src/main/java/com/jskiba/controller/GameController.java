@@ -57,13 +57,21 @@ public class GameController {
     private void proceedGame() {
         view.cleanScreen();
         view.print(this.game.getBoard());
+
         PlayerController currentPlayer = playersQueue.peek();
-        int coordinates = currentPlayer.getCoordinatesOfMove(board);
-        char sign = currentPlayer.getPlayer().getSign();
-        boolean isMoveDone = this.board.setField(sign, coordinates);
-        if(isMoveDone) {
-            playersQueue.offer(playersQueue.poll());
+        try {
+            int coordinates = currentPlayer.getCoordinatesOfMove(board);
+            char sign = currentPlayer.getPlayer().getSign();
+            boolean isMoveDone = this.board.setField(sign, coordinates);
+            if(isMoveDone) {
+                playersQueue.offer(playersQueue.poll());
+            }
+        } catch (IllegalArgumentException e) {
+            view.printError("Invalid coordinate!");
         }
+
+
+
     }
 
     private void endGame() {
