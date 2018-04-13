@@ -15,8 +15,33 @@ public class HumanPlayerController implements PlayerController {
 
     @Override
     public int getCoordinatesOfMove(Board board) {
-        String prompt = player.getName() + " provide coodinates";
-        return view.getNumberInRange(prompt, 0, board.getBoardSize()-1);
+        String prompt = player.getName() + " provide coordinate (letterNumber ex. a0)";
+        String userInput = view.getText(prompt);
+        int coordinate = getCoordinate(userInput, board.getWidth());
+        while (coordinate < 0) {
+            userInput = view.getText(prompt);
+            coordinate = getCoordinate(userInput, board.getWidth());
+        }
+        return coordinate;
+    }
+
+    private int getCoordinate(String coordinate, int rowSize) {
+        Integer column;
+        Integer row;
+
+        Character letter;
+        String digit;
+        if(coordinate.length() >= 2) {
+            letter = coordinate.charAt(0);
+            digit = coordinate.substring(1, coordinate.length());
+
+            column = Character.toLowerCase(letter) - 'a';
+            row = Integer.parseInt(digit);
+
+            return row*rowSize + column;
+        }
+
+        return -1;
     }
 
     @Override
