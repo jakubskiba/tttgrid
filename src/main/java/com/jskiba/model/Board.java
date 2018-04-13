@@ -7,6 +7,10 @@ public class Board {
     private int boardSize;
     private char[] fields;
 
+    public Board(int size) {
+        this(size, size);
+    }
+
     public Board(int height, int width) {
         this.height = height;
         this.width = width;

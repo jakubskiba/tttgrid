@@ -35,11 +35,16 @@ public class GameController {
     }
 
     public void startController() {
-        setupGame();
-        while (!isGameOver()) {
-            proceedGame();
+        boolean isProgramRunning = true;
+        while (isProgramRunning) {
+            setupGame();
+            while (!isGameOver()) {
+                proceedGame();
+            }
+            endGame();
+
+            isProgramRunning = view.getYesNo("Play again?");
         }
-        endGame();
     }
 
     private void setupGame() {
@@ -89,8 +94,7 @@ public class GameController {
     }
 
     private void setupNewGame() {
-        Board board = createBoard();
-        this.board = board;
+        this.board = createBoard();
         List<PlayerController> playerControllers = createPlayerControllers();
         List<Player> players = playerControllers
                                     .stream()
@@ -153,6 +157,12 @@ public class GameController {
     }
 
     private void restartGame() {
+        this.board = new Board(this.board.getHeight());
+        List<PlayerController> playerControllers = new ArrayList<>(this.playersQueue);
+        List<Player> players = new ArrayList<>(this.game.getPlayers());
 
+        Collections.shuffle(players);
+        this.playersQueue = new LinkedList<>(playerControllers);
+        this.game = new Game(board, players);
     }
 }
