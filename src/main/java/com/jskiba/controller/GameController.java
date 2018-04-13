@@ -16,22 +16,21 @@ public class GameController {
     private Queue<PlayerController> playersQueue;
     private BoardValidator boardValidator;
     private PlayerControllerFactory playerControllerFactory;
-    private String AIStrategy;
+    private List<String> playerControllersTypes;
     private Set<Character> takenSigns;
-
-    private final static int BOARD_MIN_SIZE = 3;
-    private final static int BOARD_MAX_SIZE = 9;
-    private final static int HUMAN_PLAYER_AMOUNT = 2;
-    private final static int COMPUTER_PLAYER_AMOUNT = 1;
+    private int boardMinSize;
+    private int boardMaxSize;
 
     public GameController(View view, BoardValidator boardValidator,
                           PlayerControllerFactory playerControllerFactory,
-                          String AIStrategy) {
+                          List<String> playerControllersTypes, int boardMinSize, int boardMaxSize) {
         this.view = view;
         this.boardValidator = boardValidator;
         this.playerControllerFactory = playerControllerFactory;
-        this.AIStrategy = AIStrategy;
+        this.playerControllersTypes = playerControllersTypes;
         this.takenSigns = new HashSet<>();
+        this.boardMinSize = boardMinSize;
+        this.boardMaxSize = boardMaxSize;
     }
 
     public void startController() {
@@ -110,7 +109,7 @@ public class GameController {
 
     private Board createBoard() {
 
-        int size = view.getNumberInRange("Provide size of board", BOARD_MIN_SIZE, BOARD_MAX_SIZE);
+        int size = view.getNumberInRange("Provide size of board", boardMinSize, boardMaxSize);
 
         return new Board(size, size);
     }
@@ -118,17 +117,12 @@ public class GameController {
     private List<PlayerController> createPlayerControllers() {
         List<PlayerController> players = new ArrayList<>();
 
-        for(int i = 0; i < HUMAN_PLAYER_AMOUNT; i++) {
-            Player player = createPlayer(true);
-            PlayerController playerController = new HumanPlayerController(player, view);
+        for (String playerControllerType : this.playerControllersTypes) {
+            Player player = createPlayer(playerControllerType.equals("human"));
+            PlayerController playerController = playerControllerFactory.getPlayerController(playerControllerType, player);
             players.add(playerController);
         }
 
-        for(int i = 0; i < COMPUTER_PLAYER_AMOUNT; i++) {
-            Player player = createPlayer(false);
-            PlayerController playerController = playerControllerFactory.getPlayerController(AIStrategy, player);
-            players.add(playerController);
-        }
 
         return players;
     }
