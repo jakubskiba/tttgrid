@@ -1,0 +1,1 @@
+java -jar target/ttt-grid-1.0-jar-with-dependencies.jar
