@@ -17,7 +17,7 @@ public class BoardValidator {
         return true;
     }
 
-    public String makeLineFromCoordinates(Board board, List<Integer> coordinateList) {
+    private String makeLineFromCoordinates(Board board, List<Integer> coordinateList) {
         StringBuilder line = new StringBuilder();
 
         char[] fields = board.getFields();
@@ -32,7 +32,7 @@ public class BoardValidator {
         return line.toString();
     }
 
-    public List<String> findAllLines(Board board) {
+    private List<String> findAllLines(Board board) {
         List<String> lines = new ArrayList<>();
 
         lines.addAll(findHorizontalLines(board));
@@ -72,7 +72,7 @@ public class BoardValidator {
         return board.EMPTY_FIELD_CHAR;
     }
 
-    public List<List<Integer>> findHorizontalLinesCoordinates(Board board) {
+    private List<List<Integer>> findHorizontalLinesCoordinates(Board board) {
         List<List<Integer>> verticalLinesCoordinates = new ArrayList<>();
 
         int lineSize = board.getHeight();
@@ -89,7 +89,7 @@ public class BoardValidator {
         return verticalLinesCoordinates;
     }
 
-    public List<String> findHorizontalLines(Board board) {
+    private List<String> findHorizontalLines(Board board) {
         List<String> horizontalLines = findHorizontalLinesCoordinates(board)
                 .stream()
                 .map(coordinatedList -> makeLineFromCoordinates(board, coordinatedList))
@@ -99,7 +99,7 @@ public class BoardValidator {
         return horizontalLines;
     }
 
-    public List<List<Integer>> findVerticalLinesCoordinates(Board board) {
+    private List<List<Integer>> findVerticalLinesCoordinates(Board board) {
         List<List<Integer>> verticalLinesCoordinates = new ArrayList<>();
 
         int lineSize = board.getWidth();
@@ -115,7 +115,7 @@ public class BoardValidator {
         return verticalLinesCoordinates;
     }
 
-    public List<String> findVerticalLines(Board board) {
+    private List<String> findVerticalLines(Board board) {
         List<String> verticalLines = findVerticalLinesCoordinates(board)
                 .stream()
                 .map(coordinatedList -> makeLineFromCoordinates(board, coordinatedList))
@@ -123,7 +123,7 @@ public class BoardValidator {
         return verticalLines;
     }
 
-    public List<String> findDiagonalLines(Board board) {
+    private List<String> findDiagonalLines(Board board) {
         List<String> diagonalLines = new ArrayList<>();
 
         diagonalLines.add(findFirstDiagonal(board));
@@ -132,7 +132,7 @@ public class BoardValidator {
         return diagonalLines;
     }
 
-    public List<Integer> findFirstDiagonalCoordinates(Board board) {
+    private List<Integer> findFirstDiagonalCoordinates(Board board) {
         List<Integer> firstDiagonalCoordinates = new ArrayList<>();
 
         for(int row = 0; row < board.getWidth(); row++) {
@@ -143,11 +143,11 @@ public class BoardValidator {
         return firstDiagonalCoordinates;
     }
 
-    public String findFirstDiagonal(Board board) {
+    private String findFirstDiagonal(Board board) {
         return makeLineFromCoordinates(board, findFirstDiagonalCoordinates(board));
     }
 
-    public List<Integer> findSecondDiagonalCoordinates(Board board) {
+    private List<Integer> findSecondDiagonalCoordinates(Board board) {
         List<Integer> secondDiagonalCoordinates = new ArrayList<>();
         for(int row = 0; row < board.getWidth(); row++) {
             int index = board.getWidth() * row + board.getWidth() - row - 1;
@@ -156,15 +156,15 @@ public class BoardValidator {
         return secondDiagonalCoordinates;
     }
 
-    public String findSecondDiagonal(Board board) {
+    private String findSecondDiagonal(Board board) {
         return makeLineFromCoordinates(board, findSecondDiagonalCoordinates(board));
     }
 
-    public boolean isLineComplete(String line) {
+    boolean isLineComplete(String line) {
         return isLineComplete(' ', line);
     }
 
-    public boolean isLineComplete(Character emptyCharSign, String line) {
+    private boolean isLineComplete(Character emptyCharSign, String line) {
         if(line.contains(emptyCharSign.toString())) {
             return false;
         }
