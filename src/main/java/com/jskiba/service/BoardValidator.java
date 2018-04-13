@@ -32,15 +32,6 @@ public class BoardValidator {
         return line.toString();
     }
 
-    private List<String> findAllLines(Board board) {
-        List<String> lines = new ArrayList<>();
-
-        lines.addAll(findHorizontalLines(board));
-        lines.addAll(findVerticalLines(board));
-        lines.addAll(findDiagonalLines(board));
-        return lines;
-    }
-
     public List<List<Integer>> findAllLinesCoordinates(Board board) {
         List<List<Integer>> linesCoordinates = new ArrayList<>();
 
@@ -50,6 +41,59 @@ public class BoardValidator {
         linesCoordinates.addAll(findVerticalLinesCoordinates(board));
 
         return linesCoordinates;
+    }
+
+    private List<Integer> findFirstDiagonalCoordinates(Board board) {
+        List<Integer> firstDiagonalCoordinates = new ArrayList<>();
+
+        for(int row = 0; row < board.getWidth(); row++) {
+            int index = board.getWidth() * row + row;
+            firstDiagonalCoordinates.add(index);
+        }
+
+        return firstDiagonalCoordinates;
+    }
+
+    private List<Integer> findSecondDiagonalCoordinates(Board board) {
+        List<Integer> secondDiagonalCoordinates = new ArrayList<>();
+        for(int row = 0; row < board.getWidth(); row++) {
+            int index = board.getWidth() * row + board.getWidth() - row - 1;
+            secondDiagonalCoordinates.add(index);
+        }
+        return secondDiagonalCoordinates;
+    }
+
+    private List<List<Integer>> findHorizontalLinesCoordinates(Board board) {
+        List<List<Integer>> verticalLinesCoordinates = new ArrayList<>();
+
+        int lineSize = board.getHeight();
+        for(int i = 0; i<board.getWidth(); i++) {
+            List<Integer> coordinates = new ArrayList<>();
+            for(int j = 0; j<board.getHeight(); j++) {
+                int index = i*lineSize +j;
+                coordinates.add(index);
+
+            }
+            verticalLinesCoordinates.add(coordinates);
+        }
+
+        return verticalLinesCoordinates;
+    }
+
+    private List<List<Integer>> findVerticalLinesCoordinates(Board board) {
+        List<List<Integer>> verticalLinesCoordinates = new ArrayList<>();
+
+        int lineSize = board.getWidth();
+
+        for(int i = 0; i<board.getWidth(); i++) {
+            List<Integer> lineCoordinates = new ArrayList<>();
+            for(int j = 0; j<board.getHeight(); j++) {
+                int index = j * lineSize + i;
+                lineCoordinates.add(index);
+            }
+            verticalLinesCoordinates.add(lineCoordinates);
+        }
+        return verticalLinesCoordinates;
     }
 
     public boolean isBoardComplete(Board board) {
@@ -72,21 +116,13 @@ public class BoardValidator {
         return board.EMPTY_FIELD_CHAR;
     }
 
-    private List<List<Integer>> findHorizontalLinesCoordinates(Board board) {
-        List<List<Integer>> verticalLinesCoordinates = new ArrayList<>();
+    private List<String> findAllLines(Board board) {
+        List<String> lines = new ArrayList<>();
 
-        int lineSize = board.getHeight();
-        for(int i = 0; i<board.getWidth(); i++) {
-            List<Integer> coordinates = new ArrayList<>();
-            for(int j = 0; j<board.getHeight(); j++) {
-                int index = i*lineSize +j;
-                coordinates.add(index);
-
-            }
-            verticalLinesCoordinates.add(coordinates);
-        }
-
-        return verticalLinesCoordinates;
+        lines.addAll(findHorizontalLines(board));
+        lines.addAll(findVerticalLines(board));
+        lines.addAll(findDiagonalLines(board));
+        return lines;
     }
 
     List<String> findHorizontalLines(Board board) {
@@ -97,22 +133,6 @@ public class BoardValidator {
 
 
         return horizontalLines;
-    }
-
-    private List<List<Integer>> findVerticalLinesCoordinates(Board board) {
-        List<List<Integer>> verticalLinesCoordinates = new ArrayList<>();
-
-        int lineSize = board.getWidth();
-
-        for(int i = 0; i<board.getWidth(); i++) {
-            List<Integer> lineCoordinates = new ArrayList<>();
-            for(int j = 0; j<board.getHeight(); j++) {
-                int index = j * lineSize + i;
-                lineCoordinates.add(index);
-            }
-            verticalLinesCoordinates.add(lineCoordinates);
-        }
-        return verticalLinesCoordinates;
     }
 
     List<String> findVerticalLines(Board board) {
@@ -132,28 +152,8 @@ public class BoardValidator {
         return diagonalLines;
     }
 
-    private List<Integer> findFirstDiagonalCoordinates(Board board) {
-        List<Integer> firstDiagonalCoordinates = new ArrayList<>();
-
-        for(int row = 0; row < board.getWidth(); row++) {
-            int index = board.getWidth() * row + row;
-            firstDiagonalCoordinates.add(index);
-        }
-
-        return firstDiagonalCoordinates;
-    }
-
     private String findFirstDiagonal(Board board) {
         return makeLineFromCoordinates(board, findFirstDiagonalCoordinates(board));
-    }
-
-    private List<Integer> findSecondDiagonalCoordinates(Board board) {
-        List<Integer> secondDiagonalCoordinates = new ArrayList<>();
-        for(int row = 0; row < board.getWidth(); row++) {
-            int index = board.getWidth() * row + board.getWidth() - row - 1;
-            secondDiagonalCoordinates.add(index);
-        }
-        return secondDiagonalCoordinates;
     }
 
     private String findSecondDiagonal(Board board) {
