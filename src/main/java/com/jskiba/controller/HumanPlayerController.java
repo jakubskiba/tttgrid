@@ -26,19 +26,18 @@ public class HumanPlayerController implements PlayerController {
     }
 
     private int getCoordinate(String coordinate, int rowSize) {
-        Integer column;
-        Integer row;
 
-        Character letter;
-        String digit;
         if(coordinate.length() >= 2) {
-            letter = coordinate.charAt(0);
-            digit = coordinate.substring(1, coordinate.length());
+            Character letter = coordinate.charAt(0);
+            String digit = coordinate.substring(1, coordinate.length());
 
-            column = Character.toLowerCase(letter) - 'a';
-            row = Integer.parseInt(digit);
-
-            return row*rowSize + column;
+            Integer column = Character.toLowerCase(letter) - 'a';
+            try {
+                Integer row = Integer.parseInt(digit);
+                return row*rowSize + column;
+            } catch (NumberFormatException e) {
+                return -1;
+            }
         }
 
         return -1;
