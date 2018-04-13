@@ -16,14 +16,14 @@ public class GameController {
     private Queue<PlayerController> playersQueue;
     private BoardValidator boardValidator;
     private PlayerControllerFactory playerControllerFactory;
-    private List<String> playerControllersTypes;
+    private String[] playerControllersTypes;
     private Set<Character> takenSigns;
     private int boardMinSize;
     private int boardMaxSize;
 
     public GameController(View view, BoardValidator boardValidator,
                           PlayerControllerFactory playerControllerFactory,
-                          List<String> playerControllersTypes, int boardMinSize, int boardMaxSize) {
+                          String[] playerControllersTypes, int boardMinSize, int boardMaxSize) {
         this.view = view;
         this.boardValidator = boardValidator;
         this.playerControllerFactory = playerControllerFactory;

@@ -7,8 +7,8 @@ import java.util.Scanner;
 public class View {
     private Scanner in;
 
-    public View(Scanner in) {
-        this.in = in;
+    public View() {
+        this.in = new Scanner(System.in);
     }
 
     public int getNumber(String prompt) {

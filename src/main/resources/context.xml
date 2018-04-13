@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations" value="classpath:application.properties"/>
+    </bean>
+    <bean id="view" class="com.jskiba.view.View"/>
+    <bean id="boardValidator" class="com.jskiba.service.BoardValidator"/>
+    <bean id="controllerFactory" class="com.jskiba.controller.PlayerControllerFactory">
+        <constructor-arg ref="view"/>
+        <constructor-arg ref="boardValidator"/>
+    </bean>
+    <bean id="gameController" class="com.jskiba.controller.GameController">
+        <constructor-arg ref="view"/>
+        <constructor-arg ref="boardValidator"/>
+        <constructor-arg ref="controllerFactory"/>
+        <constructor-arg value="${ttt.listOfValues}"/>
+        <constructor-arg value="${ttt.minBoardSize}"/>
+        <constructor-arg value="${ttt.maxBoardSize}"/>
+    </bean>
+
+</beans>
