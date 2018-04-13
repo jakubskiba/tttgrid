@@ -25,6 +25,10 @@ public class PlayerControllerFactory {
             case "ai-easy":
                 return new EasyAIPlayerController(player, boardValidator);
 
+            case "ai-hard":
+                return new HardAIPlayerController(player, boardValidator);
+
+
             default:
                 throw new IllegalArgumentException("No such type: " + type);
         }
