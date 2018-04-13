@@ -17,8 +17,8 @@ public class App
     {
         View view = new View(new Scanner(System.in));
         BoardValidator boardValidator = new BoardValidator();
-        PlayerControllerFactory playerControllerFactory= new PlayerControllerFactory(view);
-        GameController gameController = new GameController(view, boardValidator, playerControllerFactory, "random");
+        PlayerControllerFactory playerControllerFactory= new PlayerControllerFactory(view, boardValidator);
+        GameController gameController = new GameController(view, boardValidator, playerControllerFactory, "ai");
         gameController.startController();
     }
 }

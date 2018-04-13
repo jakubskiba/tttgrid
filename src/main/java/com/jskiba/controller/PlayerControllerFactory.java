@@ -1,14 +1,18 @@
 package com.jskiba.controller;
 
+import com.jskiba.model.Board;
 import com.jskiba.model.Player;
+import com.jskiba.service.BoardValidator;
 import com.jskiba.view.View;
 
 public class PlayerControllerFactory {
 
     private View view;
+    private BoardValidator boardValidator;
 
-    public PlayerControllerFactory(View view) {
+    public PlayerControllerFactory(View view, BoardValidator boardValidator) {
         this.view = view;
+        this.boardValidator = boardValidator;
     }
 
     public PlayerController getPlayerController(String type, Player player) {
@@ -20,7 +24,7 @@ public class PlayerControllerFactory {
                 return new RandomPlayerController(player);
 
             case "ai":
-                return new AIPlayerController(player);
+                return new AIPlayerController(player, boardValidator);
 
             default:
                 throw new IllegalArgumentException("No such type: " + type);
