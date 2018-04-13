@@ -3,9 +3,8 @@ package com.jskiba.service;
 import com.jskiba.model.Board;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class BoardValidator {
     public boolean isBoardFull(Board board) {
@@ -16,6 +15,21 @@ public class BoardValidator {
         }
 
         return true;
+    }
+
+    private String makeLineFromCoordinates(Board board, List<Integer> coordinateList) {
+        StringBuilder line = new StringBuilder();
+
+        char[] fields = board.getFields();
+
+        for(Integer coordinate : coordinateList) {
+            if(coordinate > board.getBoardSize() || coordinate < 0) {
+                throw new IllegalStateException("There is no " + coordinate + " coordinate");
+            }
+            line.append(fields[coordinate]);
+        }
+
+        return line.toString();
     }
 
     public List<String> findAllLines(Board board) {
@@ -47,39 +61,58 @@ public class BoardValidator {
         return board.EMPTY_FIELD_CHAR;
     }
 
-    List<String> findHorizontalLines(Board board) {
-        List<String> horizontalLines = new ArrayList<>();
+    public List<List<Integer>> findHorizontalLinesCoordinates(Board board) {
+        List<List<Integer>> verticalLinesCoordinates = new ArrayList<>();
 
-        board.getBoardSize();
-        String fieldsString = String.valueOf(board.getFields());
-        int lineLength = board.getWidth();
-        for(int i = 0; i < board.getBoardSize(); i+= lineLength) {
-            String currentLine = fieldsString.substring(i, i+lineLength);
-            horizontalLines.add(currentLine);
+        int lineSize = board.getHeight();
+        for(int i = 0; i<board.getWidth(); i++) {
+            List<Integer> coordinates = new ArrayList<>();
+            for(int j = 0; j<board.getHeight(); j++) {
+                int index = i*lineSize +j;
+                coordinates.add(index);
+
+            }
+            verticalLinesCoordinates.add(coordinates);
         }
+
+        return verticalLinesCoordinates;
+    }
+
+    public List<String> findHorizontalLines(Board board) {
+        List<String> horizontalLines = findHorizontalLinesCoordinates(board)
+                .stream()
+                .map(coordinatedList -> makeLineFromCoordinates(board, coordinatedList))
+                .collect(Collectors.toList());
+
 
         return horizontalLines;
     }
 
-    List<String> findVerticalLines(Board board) {
-        List<String> verticalLines = new ArrayList<>();
-
-        char[] fields = board.getFields();
+    public List<List<Integer>> findVerticalLinesCoordinates(Board board) {
+        List<List<Integer>> verticalLinesCoordinates = new ArrayList<>();
 
         int lineSize = board.getWidth();
 
         for(int i = 0; i<board.getWidth(); i++) {
-            StringBuilder currentLine = new StringBuilder();
+            List<Integer> lineCoordinates = new ArrayList<>();
             for(int j = 0; j<board.getHeight(); j++) {
                 int index = j * lineSize + i;
-                currentLine.append(fields[index]);
+                lineCoordinates.add(index);
             }
-            verticalLines.add(currentLine.toString());
+            verticalLinesCoordinates.add(lineCoordinates);
         }
+        return verticalLinesCoordinates;
+    }
+
+    public List<String> findVerticalLines(Board board) {
+        List<String> verticalLines = findVerticalLinesCoordinates(board)
+                .stream()
+                .map(coordinatedList -> makeLineFromCoordinates(board, coordinatedList))
+                .collect(Collectors.toList());
         return verticalLines;
     }
 
-    List<String> findDiagonalLines(Board board) {
+    public List<String> findDiagonalLines(Board board) {
         List<String> diagonalLines = new ArrayList<>();
 
         diagonalLines.add(findFirstDiagonal(board));
@@ -88,24 +121,32 @@ public class BoardValidator {
         return diagonalLines;
     }
 
-    private String findFirstDiagonal(Board board) {
-        StringBuilder diagonal = new StringBuilder();
-        char[] fields = board.getFields();
+    public List<Integer> findFirstDiagonalCoordinates(Board board) {
+        List<Integer> firstDiagonalCoordinates = new ArrayList<>();
+
         for(int row = 0; row < board.getWidth(); row++) {
             int index = board.getWidth() * row + row;
-            diagonal.append(fields[index]);
+            firstDiagonalCoordinates.add(index);
         }
-        return diagonal.toString();
+
+        return firstDiagonalCoordinates;
     }
 
-    private String findSecondDiagonal(Board board) {
-        StringBuilder diagonal = new StringBuilder();
-        char[] fields = board.getFields();
+    public String findFirstDiagonal(Board board) {
+        return makeLineFromCoordinates(board, findFirstDiagonalCoordinates(board));
+    }
+
+    public List<Integer> findSecondDiagonalCoordinates(Board board) {
+        List<Integer> secondDiagonalCoordinates = new ArrayList<>();
         for(int row = 0; row < board.getWidth(); row++) {
             int index = board.getWidth() * row + board.getWidth() - row - 1;
-            diagonal.append(fields[index]);
+            secondDiagonalCoordinates.add(index);
         }
-        return diagonal.toString();
+        return secondDiagonalCoordinates;
+    }
+
+    public String findSecondDiagonal(Board board) {
+        return makeLineFromCoordinates(board, findSecondDiagonalCoordinates(board));
     }
 
     public boolean isLineComplete(String line) {

@@ -77,7 +77,7 @@ public class BoardValidatorTest {
 
     @Test
     public void testFindHorizontalLines() {
-        Board board = new Board(3, 4);
+        Board board = new Board(4, 3);
         for(int i = 0; i<12; i++) {
             char sign = (char) ('a'+i);
             board.setField(sign, i);
