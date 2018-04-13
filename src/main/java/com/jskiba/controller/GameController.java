@@ -37,16 +37,32 @@ public class GameController {
     public void startController() {
         setupGame();
         while (!isGameOver()) {
-            view.cleanScreen();
-            view.print(this.game.getBoard());
-            PlayerController currentPlayer = playersQueue.peek();
-            int coordinates = currentPlayer.getCoordinatesOfMove(board);
-            char sign = currentPlayer.getPlayer().getSign();
-            boolean isMoveDone = this.board.setField(sign, coordinates);
-            if(isMoveDone) {
-                playersQueue.offer(playersQueue.poll());
-            }
+            proceedGame();
         }
+        endGame();
+    }
+
+    private void setupGame() {
+        if(game == null) {
+            setupNewGame();
+        } else {
+            restartGame();
+        }
+    }
+
+    private void proceedGame() {
+        view.cleanScreen();
+        view.print(this.game.getBoard());
+        PlayerController currentPlayer = playersQueue.peek();
+        int coordinates = currentPlayer.getCoordinatesOfMove(board);
+        char sign = currentPlayer.getPlayer().getSign();
+        boolean isMoveDone = this.board.setField(sign, coordinates);
+        if(isMoveDone) {
+            playersQueue.offer(playersQueue.poll());
+        }
+    }
+
+    private void endGame() {
         view.cleanScreen();
         view.print(this.game.getBoard());
         Player winner = determineWinner();
@@ -70,14 +86,6 @@ public class GameController {
     private boolean isGameOver() {
         return this.boardValidator.isBoardComplete(this.game.getBoard()) ||
                 this.boardValidator.isBoardFull(this.game.getBoard());
-    }
-
-    private void setupGame() {
-        if(game == null) {
-            setupNewGame();
-        } else {
-            restartGame();
-        }
     }
 
     private void setupNewGame() {
