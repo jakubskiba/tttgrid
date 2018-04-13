@@ -13,10 +13,11 @@ public class GameController {
     private View view;
     private Game game;
     private Board board;
-    private Queue<PlayerController> playesQueue;
+    private Queue<PlayerController> playersQueue;
     private BoardValidator boardValidator;
     private PlayerControllerFactory playerControllerFactory;
     private String AIStrategy;
+    private Set<Character> takenSigns;
 
     private final static int BOARD_MIN_SIZE = 3;
     private final static int BOARD_MAX_SIZE = 9;
@@ -30,6 +31,7 @@ public class GameController {
         this.boardValidator = boardValidator;
         this.playerControllerFactory = playerControllerFactory;
         this.AIStrategy = AIStrategy;
+        this.takenSigns = new HashSet<>();
     }
 
     public void startController() {
@@ -37,12 +39,12 @@ public class GameController {
         while (!isGameOver()) {
             view.cleanScreen();
             view.print(this.game.getBoard());
-            PlayerController currentPlayer = playesQueue.peek();
+            PlayerController currentPlayer = playersQueue.peek();
             int coordinates = currentPlayer.getCoordinatesOfMove(board);
             char sign = currentPlayer.getPlayer().getSign();
             boolean isMoveDone = this.board.setField(sign, coordinates);
             if(isMoveDone) {
-                playesQueue.offer(playesQueue.poll());
+                playersQueue.offer(playersQueue.poll());
             }
         }
         view.cleanScreen();
@@ -90,7 +92,7 @@ public class GameController {
         this.game = new Game(board, players);
 
         Collections.shuffle(playerControllers);
-        this.playesQueue = new LinkedList<>(playerControllers);
+        this.playersQueue = new LinkedList<>(playerControllers);
 
     }
 
@@ -126,7 +128,14 @@ public class GameController {
             view.print("Creating computer player");
         }
         String name = view.getText("Provide player name: ");
+
         Character sign = view.getChar("Provide sign for player " + name + ":");
+        while (takenSigns.contains(sign)) {
+            view.print("Sign taken!");
+            sign = view.getChar("Provide another sign for player " + name + ":");
+        }
+        takenSigns.add(sign);
+
         return new Player(name, sign);
     }
 
